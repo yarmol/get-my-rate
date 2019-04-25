@@ -3,6 +3,8 @@ package me.jarad.rates.config;
 import ch.vorburger.exec.ManagedProcessException;
 import ch.vorburger.mariadb4j.DBConfigurationBuilder;
 import ch.vorburger.mariadb4j.springframework.MariaDB4jSpringService;
+import lombok.extern.slf4j.Slf4j;
+import me.jarad.rates.handler.ApplicationStartException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +18,7 @@ import javax.sql.DataSource;
  * Created by Vitalii Yarmolenko (yarmol@gmail.com) on 23.04.19.
  */
 @Configuration
+@Slf4j
 public class EmbeddedDbConfig {
 
     private static final String DB_SERVICE = "dbServiceBean";
@@ -46,8 +49,8 @@ public class EmbeddedDbConfig {
                     .driverClassName(datasourceDriver)
                     .build();
         } catch (ManagedProcessException e) {
-
+            log.error("Database initialization error, {}", e.getMessage());
+            throw new ApplicationStartException("Database initialization error", e);
         }
-        return null;
     }
 }

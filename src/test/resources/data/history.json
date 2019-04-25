@@ -1,0 +1,14 @@
+[
+  {
+    date: "2018-01-29",
+    rate: 11446.54,
+    currency_from: "BTC",
+    currency_to: "USD"
+  },
+  {
+    date: "2018-01-30",
+    rate: 11685.58,
+    currency_from: "BTC",
+    currency_to: "USD"
+  }
+]

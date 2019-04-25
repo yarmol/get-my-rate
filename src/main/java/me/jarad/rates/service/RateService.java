@@ -1,5 +1,6 @@
 package me.jarad.rates.service;
 
+import me.jarad.rates.handler.WrongRequestException;
 import me.jarad.rates.model.RateResponse;
 
 import java.time.LocalDate;
@@ -10,6 +11,6 @@ public interface RateService {
 
     Optional<RateResponse> getCurrentRate();
 
-    List<RateResponse> getRateHistory(LocalDate from, LocalDate to);
+    List<RateResponse> getRateHistory(LocalDate from, LocalDate to) throws WrongRequestException;
 
 }

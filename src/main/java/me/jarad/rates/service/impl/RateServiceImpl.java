@@ -1,6 +1,7 @@
 package me.jarad.rates.service.impl;
 
 import com.google.common.collect.Lists;
+import me.jarad.rates.handler.WrongRequestException;
 import me.jarad.rates.model.RateEntryEntity;
 import me.jarad.rates.model.RateResponse;
 import me.jarad.rates.repository.RateEntryRepository;
@@ -42,7 +43,9 @@ public class RateServiceImpl implements RateService {
     }
 
 
-    public List<RateResponse> getRateHistory(LocalDate from, LocalDate to) {
+    public List<RateResponse> getRateHistory(LocalDate from, LocalDate to) throws WrongRequestException {
+
+
 
 
         List<RateEntryEntity> currentRate = repository.findByDateBetweenOrderByDateAsc(from,to);

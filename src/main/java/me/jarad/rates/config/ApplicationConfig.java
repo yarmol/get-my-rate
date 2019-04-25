@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import me.jarad.rates.handler.ApplicationStartException;
 import me.jarad.rates.model.DateValueItem;
 import me.jarad.rates.model.InitialSettingsEntity;
 import me.jarad.rates.model.RateEntryEntity;
@@ -22,10 +23,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 import static me.jarad.rates.utils.ApplicationConstants.CURRENCY_BTC;
 import static me.jarad.rates.utils.ApplicationConstants.CURRENCY_USD;
+import static me.jarad.rates.utils.ApplicationUtils.getAllLines;
 
 
 /**
@@ -82,20 +84,17 @@ public class ApplicationConfig {
 
             } catch (FileNotFoundException fileNotFoundException) {
                 log.error("Initial file not found. Application is not workable, {}", fileNotFoundException.getMessage());
-                throw new RuntimeException("Init data file not found", fileNotFoundException);
+                throw new ApplicationStartException("Init data file not found", fileNotFoundException);
             } catch (IOException ioException) {
                 log.error("Initial file was not loaded. Application is not workable, {}", ioException.getMessage());
-                throw new RuntimeException("Init data loading error", ioException);
+                throw new ApplicationStartException("Init data loading error", ioException);
             }
             log.info("Start initial finished");
 
         }
     }
 
-    private String getAllLines(BufferedReader reader) {
-        return reader.lines()
-                .collect(Collectors.joining(System.lineSeparator()));
-    }
+
 
 
 
