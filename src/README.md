@@ -28,6 +28,20 @@ BTC/USD data are inserted into DB.
 For manual testing reasons Swagger GUI also was added. So it is avaliable on host:8080/swagger-ui.html 
 when application are started
 
+Running: 
+--
+Running application is possible with command:
+```
+gradle run
+```
+After successful running we will see 
+```
+	Application 'get-my-rate' is running! Access URLs:
+	Local: 		<HOST>:8080
+	Swagger: 	<HOST>:8080/swagger-ui.html
+	External: 	<HOST>:8080
+```
+
 API Methods: 
 --
 

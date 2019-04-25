@@ -18,7 +18,7 @@ apply plugin: 'maven'
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
-mainClassName = "me.jarad.rates.BtcApplication"
+mainClassName = "me.jarad.rates.RatesApplication"
 repositories {
 	mavenCentral()
 	jcenter()
