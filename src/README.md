@@ -45,6 +45,7 @@ After successful running we will see
 API Methods: 
 --
 
+
 * GET /api/current getting exchange rate (on current date).
 Response format is:
 
