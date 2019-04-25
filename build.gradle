@@ -1,0 +1,53 @@
+
+buildscript {
+	repositories{
+		mavenCentral()
+		jcenter()
+	}
+	dependencies {
+		classpath "io.spring.gradle:dependency-management-plugin:1.0.6.RELEASE"
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:2.0.3.RELEASE"
+	}
+}
+apply plugin: "java"
+apply plugin: "application"
+apply plugin: "io.spring.dependency-management"
+apply plugin: 'maven-publish'
+apply plugin: 'maven'
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+mainClassName = "me.jarad.rates.BtcApplication"
+repositories {
+	mavenCentral()
+	jcenter()
+}
+
+dependencies {
+
+	// https://mvnrepository.com/artifact/org.projectlombok/lombok
+	compile group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
+
+	compile 'ch.vorburger.mariaDB4j:mariaDB4j:2.2.3'
+
+	// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+
+	// https://mvnrepository.com/artifact/com.google.guava/guava
+	compile group: 'com.google.guava', name: 'guava', version: '27.0-jre'
+
+	compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.2'
+	compile 'org.springframework.boot:spring-boot-starter-data-rest:2.0.3.RELEASE'
+	compile 'org.springframework.boot:spring-boot-starter-web:2.0.3.RELEASE'
+	compile 'org.springframework.boot:spring-boot-starter-data-jpa:2.0.3.RELEASE'
+	//compile 'mysql:mysql-connector-java:8.0.12'
+	//compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.0.3.RELEASE'
+	compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.2.3'
+// https://mvnrepository.com/artifact/com.zaxxer/HikariCP
+	compile group: 'com.zaxxer', name: 'HikariCP', version: '3.3.0'
+// https://mvnrepository.com/artifact/junit/junit
+	testCompile group: 'junit', name: 'junit', version: '4.11'
+
+	testCompile 'org.springframework.boot:spring-boot-starter-test:2.0.3.RELEASE'
+}
