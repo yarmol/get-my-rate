@@ -3,6 +3,7 @@ package me.jarad.rates.handler;
 import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -21,6 +22,19 @@ public class AppExceptionHandler {
         ApiError apiError = ApiError.builder()
                 .status(HttpStatus.UNPROCESSABLE_ENTITY)
                 .message("Wrong incoming date format")
+                .timestamp(LocalDateTime.now())
+                .build();
+        response.setStatus(apiError.getStatus().value());
+        return ResponseEntity.status(apiError.getStatus()).body(apiError);
+    }
+
+    @ExceptionHandler({
+            MissingServletRequestParameterException.class
+    })
+    public ResponseEntity<ApiError> paramsErrorHandler(Exception ex, HttpServletResponse response) {
+        ApiError apiError = ApiError.builder()
+                .status(HttpStatus.BAD_REQUEST)
+                .message("Not enough query parameters")
                 .timestamp(LocalDateTime.now())
                 .build();
         response.setStatus(apiError.getStatus().value());

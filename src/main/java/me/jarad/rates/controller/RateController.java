@@ -9,6 +9,7 @@ import me.jarad.rates.model.RateResponse;
 import me.jarad.rates.service.RateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
  * Main rates info controller
@@ -27,7 +32,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping
 @Api(value = "Rate controller")
-public class RateController extends CommonRequestParentController {
+public class RateController {
 
 
     private RateService rateService;
@@ -72,13 +77,24 @@ public class RateController extends CommonRequestParentController {
                              @RequestParam("from") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
                              @RequestParam("to") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) throws WrongRequestException {
 
+
         if (to.isBefore(from)) {
             throw new WrongRequestException("Wrong dates period");
         }
 
-
         List<RateResponse> rateHistory = rateService.getRateHistory(from, to);
         return ResponseEntity.ok(rateHistory);
+    }
+
+    /**
+     * Default point for not existed endpoints
+     * @param request
+     * @param response
+     * @throws WrongRequestException
+     */
+    @RequestMapping(method = {GET,POST,PUT,PATCH},path = "/**")
+    public void performErrorRequest(HttpServletRequest request, HttpServletResponse response) throws WrongRequestException {
+          throw new WrongRequestException("Wrong request");
     }
 
 }
